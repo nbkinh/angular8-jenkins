@@ -1,19 +1,66 @@
+#!/usr/bin/env groovy
+
+@Library('buildHelper') _
+
 pipeline {
-  agent any
+    agent { dockerfile true }
 
-  tools {nodejs "node"}
+    stages {
+        stage('Pre-build cleanup') {
+            when {
+                branch 'PR-*'
+            }
+            steps {
+                echo "Current build display name set to: ${currentBuild.displayName}"
+                script {
+                    currentBuild.displayName = "# ${env.BUILD_NUMBER} - ${env.CHANGE_TITLE}"
+                    meUtils.removeDuplicates(currentBuild)
+                }
+            }
+        }
 
-  stages {    
-    stage('Install dependencies') {
-      steps {
-        sh 'npm install'
-      }
+        stage('Build') {
+            when {
+                branch 'PR-*'
+            }
+            steps {
+                sh 'npm i'
+                sh 'npm run prestart'
+                sh 'npm run build:prod'
+            }
+        }
+
+        stage('QA') {
+            when {
+                branch 'PR-*'
+            }
+            parallel {
+                stage('Code quality analysis') {
+                    steps {
+                        sh 'npm run lint'
+                    }
+                }
+
+                stage('Tests') {
+                    steps {
+                        sh 'npm run test'
+                    }
+                    post {
+                        always {
+                            script {
+                                junit 'test-results.xml'
+                                meUtils.updateGithubCommitStatus(currentBuild, "Tests against ${CHANGE_TARGET}")
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    stage('Test') {
-      steps {
-         sh 'ng lint'
-      }
+    post {
+        always {
+            deleteDir()
+        }
     }
-  }
 }

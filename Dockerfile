@@ -1,16 +1,21 @@
-FROM node
+FROM node:12-alpine
 
-RUN apt-get update && apt-get upgrade -y \
-    && apt-get clean
+RUN apk --no-cache --virtual build-dependencies add \
+    python \
+    make \
+    g++ \
+    gifsicle \
+    ttf-freefont \
+    optipng \
+    cairo-dev \
+    jpeg-dev \
+    udev \
+    chromium \
+    git \
+    && npm i npm@latest -g
 
-RUN mkdir /app
-WORKDIR /app
+ENV CHROME_BIN /usr/bin/chromium-browser
+ENV LIGHTHOUSE_CHROMIUM_PATH /usr/bin/chromium-browser
 
-COPY package.json /app/
-RUN npm install --only=production
+WORKDIR /home/node/app
 
-COPY src /app/src
-
-EXPOSE 3000
-
-CMD [ "npm", "start" ]
