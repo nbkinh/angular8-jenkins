@@ -11,12 +11,14 @@ pipeline {
     stages {
         stage('Pre-build cleanup') {
             steps {
-                echo myVar = $CHROME_BIN
+                
                 echo "Current build display name set to: ${currentBuild.displayName}"
                 script {
                     currentBuild.displayName = "# ${env.BUILD_NUMBER} - ${env.CHANGE_TITLE}"
                     meUtils.removeDuplicates(currentBuild)
                 }
+              
+              echo myVar = $myName
             }
         }
 
