@@ -24,7 +24,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                #sh 'npm i'
+                //sh 'npm i'
             }
         }
 
@@ -32,7 +32,7 @@ pipeline {
             parallel {
                 stage('Code quality analysis') {
                     steps {
-                        #sh 'npm run lint'
+                        //sh 'npm run lint'
                     }
                 }
 
@@ -43,8 +43,8 @@ pipeline {
                     post {
                         always {
                             script {
-                                #junit 'test-results.xml'
-                                #meUtils.updateGithubCommitStatus(currentBuild, "Tests against ${CHANGE_TARGET}")
+                                //junit 'test-results.xml'
+                                //meUtils.updateGithubCommitStatus(currentBuild, "Tests against ${CHANGE_TARGET}")
                             }
                         }
                     }
@@ -55,7 +55,7 @@ pipeline {
 
     post {
         always {
-            #deleteDir()
+            //deleteDir()
         }
     }
 }
