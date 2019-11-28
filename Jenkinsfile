@@ -5,7 +5,7 @@
 pipeline {
     agent { dockerfile true }
     environment {
-            HOME = '.'
+            HOME = '/home/node/app'
     }
 
     stages {
