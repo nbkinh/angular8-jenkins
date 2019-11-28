@@ -22,8 +22,6 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm i'
-                sh 'npm run prestart'
-                sh 'npm run build:prod'
             }
         }
 
