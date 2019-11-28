@@ -13,9 +13,10 @@ RUN apk --no-cache --virtual build-dependencies add \
     chromium \
     git \
     && npm i npm@latest -g
-
+RUN /bin/bash -c 'echo this would generally be apt-get'
 ENV CHROME_BIN /usr/bin/chromium-browser
 ENV LIGHTHOUSE_CHROMIUM_PATH /usr/bin/chromium-browser
+ENV myName="this is my name"
 
 WORKDIR /home/node/app
 
