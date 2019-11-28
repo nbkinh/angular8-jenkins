@@ -1,10 +1,10 @@
 pipeline {
-    agent { dockerfile true }
+    agent any
     
     stages {
         stage('Pre-build cleanup') {
             steps {
-              echo myVar = $myName
+              echo 'Hello world'
             }
         }
 
