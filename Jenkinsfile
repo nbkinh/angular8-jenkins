@@ -5,6 +5,7 @@ pipeline {
         stage('Pre-build cleanup') {
             steps {
               echo 'Hello world'
+              echo currentBuild.displayName
             }
         }
 
