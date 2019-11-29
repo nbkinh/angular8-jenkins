@@ -2,6 +2,7 @@ pipeline {
     agent { dockerfile true }
     stages {
       stage('build') {
+            environment { HOME="." }
             steps {
                 sh 'npm install'
             }
