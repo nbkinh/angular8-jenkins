@@ -2,6 +2,7 @@ pipeline {
     agent { dockerfile true }
     stages {
         stage('Test') {
+          environment {HOME = '/var/www/html'}
             steps {
                 sh 'node --version'
                 sh 'svn --version'
