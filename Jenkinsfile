@@ -7,9 +7,7 @@ pipeline {
                 sh 'node --version'
                 sh 'svn --version'
                 sh "npm i"
-                wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
-                    sh 'npm run test'
-                }
+                sh 'npm test'
             }
         }
     }
