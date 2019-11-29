@@ -1,17 +1,12 @@
 pipeline {
-    agent any
-    
+    agent {
+        docker { image 'node:7-alpine' }
+    }
     stages {
-        stage('Pre-build cleanup') {
+        stage('Test') {
             steps {
-              echo 'Hello world'
-              echo currentBuild.displayName
+                sh 'node --version'
             }
         }
-
-        
     }
-        
-
-    
 }
