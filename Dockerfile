@@ -1,6 +1,3 @@
-FROM node:12-alpine
+FROM node:7-alpine
 
 RUN apk add -U subversion
-
-ENV myName="this is my name"
-
