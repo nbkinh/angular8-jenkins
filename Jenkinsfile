@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sh 'node --version'
                 sh 'svn --version'
-                sh 'sudo chown -R 127:134 /var/www/html/.npm'
+                sh 'chown -R 127:134 /var/www/html/.npm'
                 sh "npm i"
                 wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
                     sh 'npm run test'
