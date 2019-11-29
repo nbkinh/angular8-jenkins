@@ -1,10 +1,22 @@
 FROM node:12-alpine
 
-RUN apk add -U subversion
+RUN apk --no-cache --virtual build-dependencies add \
+    python \
+    make \
+    g++ \
+    gifsicle \
+    ttf-freefont \
+    optipng \
+    cairo-dev \
+    jpeg-dev \
+    udev \
+    chromium \
+    git \
+    && npm i npm@latest -g
 
-WORKDIR  /var/www/html
+ENV CHROME_BIN /usr/bin/chromium-browser
+ENV LIGHTHOUSE_CHROMIUM_PATH /usr/bin/chromium-browser
 
-COPY ./package.json ./
-COPY ./package-lock.json ./
+WORKDIR /home/node/app
 
 
