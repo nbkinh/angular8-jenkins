@@ -4,8 +4,7 @@ pipeline {
         stage('Test') {
           environment {HOME = '.'}
             steps {
-                sh 'node --version'
-                sh 'svn --version'
+                sh 'node --version'                
                 sh "npm i"
                 sh 'npm test'
             }
