@@ -1,3 +1,3 @@
-FROM node:7-alpine
+FROM node:12-alpine
 
 RUN apk add -U subversion
