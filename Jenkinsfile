@@ -5,8 +5,10 @@ pipeline {
             steps {
                 sh 'node --version'
                 sh 'svn --version'
-                sh 'cd /var/www/html'
-                sh 'npm test'
+                sh "npm i"
+                wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
+                    sh 'npm run test'
+                }
             }
         }
     }
